@@ -2,8 +2,6 @@
 // I tried my best to make the code as simple as possible please dont mind the variable names.
 // Also this idea came in my mind after checking Traversy Media's latest video.
 
-// Clear the concole on every refresh
-console.clear();
 // set the body to full height
 // document.body.style.height = `${innerHeight}px`
 
@@ -81,8 +79,6 @@ const symbolEl = document.getElementById("symbol");
 
 // Button to generate the password
 const generateBtn = document.getElementById("generate");
-// Button to copy the text
-const copyBtn = document.getElementById("copy-btn");
 // Result viewbox container
 const resultContainer = document.querySelector(".result");
 // Text info showed after generate button is clicked
@@ -99,22 +95,6 @@ let resultContainerBound = {
 	left: resultContainer.getBoundingClientRect().left,
 	top: resultContainer.getBoundingClientRect().top,
 };
-// This will update the position of the copy button based on mouse Position
-resultContainer.addEventListener("mousemove", e => {
-	resultContainerBound = {
-		left: resultContainer.getBoundingClientRect().left,
-		top: resultContainer.getBoundingClientRect().top,
-	};
-	if(generatedPassword){
-		copyBtn.style.opacity = '1';
-		copyBtn.style.pointerEvents = 'all';
-		copyBtn.style.setProperty("--x", `${e.x - resultContainerBound.left}px`);
-		copyBtn.style.setProperty("--y", `${e.y - resultContainerBound.top}px`);
-	}else{
-		copyBtn.style.opacity = '0';
-		copyBtn.style.pointerEvents = 'none';
-	}
-});
 window.addEventListener("resize", e => {
 	resultContainerBound = {
 		left: resultContainer.getBoundingClientRect().left,
@@ -123,10 +103,10 @@ window.addEventListener("resize", e => {
 });
 
 // Copy Password in clipboard
-copyBtn.addEventListener("click", () => {
+resultContainer.addEventListener("click", () => {
 	const textarea = document.createElement("textarea");
 	const password = resultEl.innerText;
-	if (!password || password == "CLICK GENERATE") {
+	if (!password || password == "-") {
 		return;
 	}
 	textarea.value = password;
@@ -150,6 +130,7 @@ generateBtn.addEventListener("click", () => {
 	const hasSymbol = symbolEl.checked;
 	generatedPassword = true;
 	resultEl.innerText = generatePassword(length, hasLower, hasUpper, hasNumber, hasSymbol);
+	resultEl.style.fontSize = (30 - (length / 2)) + "px";
 	copyInfo.style.transform = "translateY(0%)";
 	copyInfo.style.opacity = "0.75";
 	copiedInfo.style.transform = "translateY(200%)";
@@ -177,11 +158,7 @@ function generatePassword(length, lower, upper, number, symbol) {
 function disableOnlyCheckbox(){
 	let totalChecked = [uppercaseEl, lowercaseEl, numberEl, symbolEl].filter(el => el.checked)
 	totalChecked.forEach(el => {
-		if(totalChecked.length == 1){
-			el.disabled = true;
-		}else{
-			el.disabled = false;
-		}
+		el.disabled = totalChecked.length == 1
 	})
 }
 
