@@ -28,9 +28,8 @@ button {
 
 .container {
   margin: 40px 0;
-  width: 400px;
-  height: 600px;
   padding: 10px 25px;
+  width: 400px;
   background: #0a0e31;
   border-radius: 10px;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.45), 0 4px 8px rgba(0, 0, 0, 0.35), 0 8px 12px rgba(0, 0, 0, 0.15);
@@ -38,11 +37,23 @@ button {
   font-family: "sans-serif";
 }
 
+.footer {
+  text-align: center;
+  line-height: 3em;
+  color: #fff;
+}
+
+.footer a,
+.footer a:visited {
+  color: rgb(93 104 226);
+}
+
 .container h2.title {
   font-size: 1.75rem;
   margin: 10px -5px;
   margin-bottom: 30px;
   color: #fff;
+  text-align: center;
 }
 
 .result {
@@ -275,6 +286,14 @@ button {
 .settings .setting input:focus + label:before {
   -webkit-box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75);
           box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75);
+}
+
+.settings .setting input:disabled + label:before, .settings .setting input:disabled + label:after {
+    cursor: not-allowed;
+}
+
+.settings .setting input:disabled + label:before {
+    background: #4f4f6a;
 }
 
 .btn.generate {
